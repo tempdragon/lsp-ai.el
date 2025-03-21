@@ -28,9 +28,16 @@
   :group 'lsp-ai
   :package-version '(lsp-mode . "9.0.0"))
 
-(defcustom lsp-ai-completion-messages "model1"
+(defcustom lsp-ai-completion-messages (list)
+  "Vector of key-value pairs for AI completion messages.
+Each element is a two-element vector where both the key and value are strings."
+  :type '(list string)
+  :group 'lsp-ai
+  :package-version '(lsp-mode . "9.0.0"))
+
+(defcustom lsp-ai-completion-max-context 1024
   "Command to run the lsp-ai executable."
-  :type 'lsp-string-vector
+  :type 'integer
   :group 'lsp-ai
   :package-version '(lsp-mode . "9.0.0"))
 
@@ -52,7 +59,7 @@
   "Init options for lsp-ai."
   (list
    (list :model lsp-ai-completion-model
-         :parameters (list :messages lsp-ai-completion-messages :maxContext)
+         :parameters (list :messages (vector lsp-ai-completion-messages) :maxContext lsp-ai-completion-max-context)
           ))
   )
 (lsp-register-client
