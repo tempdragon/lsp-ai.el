@@ -31,7 +31,7 @@
 (defcustom lsp-ai-completion-messages (list)
   "Vector of key-value pairs for AI completion messages.
 Each element is a two-element vector where both the key and value are strings."
-  :type '(list string)
+  :type '(repeat (list string string))
   :group 'lsp-ai
   :package-version '(lsp-mode . "9.0.0"))
 
@@ -59,7 +59,7 @@ Each element is a two-element vector where both the key and value are strings."
   "Init options for lsp-ai."
   (list
    (list :model lsp-ai-completion-model
-         :parameters (list :messages (vector lsp-ai-completion-messages) :maxContext lsp-ai-completion-max-context)
+         :parameters (list :messages (vconcat lsp-ai-completion-messages) :maxContext lsp-ai-completion-max-context)
           ))
   )
 (lsp-register-client
